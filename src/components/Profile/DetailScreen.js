@@ -263,7 +263,7 @@ const Top = styled.div`
 
 const Wrapper = styled.div`
 	width: 768px;
-	background-color: white;
+	/* background-color: white; */
 `;
 
 const Container = styled.div`
