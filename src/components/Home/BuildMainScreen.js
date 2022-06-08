@@ -1,9 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import { BsThreeDots, BsBookmark } from 'react-icons/bs';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { FiSend } from 'react-icons/fi';
-import { FaRegComment, FaRegSmileWink } from 'react-icons/fa';
+import React from "react";
+import styled from "styled-components";
+// import pix from "./babe.jpeg";
+import { BsThreeDots, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+
+import { AiFillHome, AiOutlineHeart } from "react-icons/ai";
+import { FiSend } from "react-icons/fi";
+import { FaRegComment, FaRegSmileWink } from "react-icons/fa";
 
 const BuildMainScreen = () => {
     return (
@@ -11,21 +13,23 @@ const BuildMainScreen = () => {
             <TopBuild>
                 <Holder>
                     <Image src='/esta bueno pero le ase falta algo de divertidad.jpg' />
-                    <Name>Name</Name>
+                    <Name>name</Name>
                 </Holder>
             </TopBuild>
+
             <PostBuild>
                 <Top>
                     <Hold>
                         <ImageProfile src='/esta bueno pero le ase falta algo de divertidad.jpg' />
                         <ProfileHolder>
-                            <ProfileName>Name</ProfileName>
+                            <ProfileName>name</ProfileName>
                             <Profile>Original</Profile>
                         </ProfileHolder>
                     </Hold>
 
                     <DotIcon />
                 </Top>
+
                 <PostImage src='/esta bueno pero le ase falta algo de divertidad.jpg' />
 
                 <Icons>
@@ -38,19 +42,32 @@ const BuildMainScreen = () => {
                     <SavedIcon />
                 </Icons>
                 <LikePost>
-                    <span>{ 0 }</span>likes
+                    <span>{ 0 }</span>likes{ " " }
                 </LikePost>
 
                 <Post>
                     <span>name</span>
-                    <Content>To address all issues (including breaking changes), run:
-                        npm audit fix --force</Content>
-
+                    <Content>What were takeaways from today's service?... </Content>
                 </Post>
+
+                <View>
+                    View All <span>{ 0 }</span> comments{ " " }
+                </View>
+
+                <Comment>
+                    <Hold>
+                        <span>name</span>
+                        <Content>What were takeaways from today's service?... </Content>
+                    </Hold>
+
+                    <LoveIconComment />
+                </Comment>
+
                 <Time>Posted 3Hours Ago</Time>
+
                 <PostInput>
                     <PostIcon />
-                    <Input placeholder='Add a comment' />
+                    <Input placeholder="Add a commment..." />
                     <Text>Post</Text>
                 </PostInput>
             </PostBuild>
@@ -60,182 +77,248 @@ const BuildMainScreen = () => {
 
 export default BuildMainScreen;
 
+const Comment = styled.div`
+	margin-left: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 15px;
+	span {
+		margin-right: 5px;
+		font-weight: 700;
+		:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
+`;
+
+const View = styled.div`
+	color: lightgray;
+	margin: 20px;
+	font-size: 15px;
+`;
+
 const Text = styled.div`
-    font-weight: bold;
-    color: lightblue;
-    font-size: 18px;
-    text-transform: uppercase;
-    margin-right: 12px;
-
-    :hover{
-        cursor: pointer;
-    }
+	font-weight: bold;
+	color: lightblue;
+	font-size: 15px;
+	text-transform: uppercase;
+	margin-right: 12px;
+	:hover {
+		cursor: pointer;
+	}
 `;
+
 const Input = styled.input`
-    outline: none;
-    border: 0;
-    background-color: transparent;
-    flex: 1;
-
-    ::placeholder{
-        /* font-family: Poppins; */
-        font-size: 18px;
-    }
+	outline: none;
+	border: 0;
+	background-color: transparent;
+	flex: 1;
+	font-size: 15px;
+	::placeholder {
+		font-family: Poppins;
+		font-size: 15px;
+	}
 `;
+
 const PostIcon = styled(FaRegSmileWink)`
-    margin:  0 10px;
-    font-size: 30px;
+	margin: 0 10px;
+	font-size: 30px;
 `;
 const PostInput = styled.div`
-    display: flex;
+	display: flex;
+	padding: 20px 0;
+	font-size: 15px;
+	border-top: 1px solid silver;
+	align-items: center;
 `;
+
+const Content = styled.div``;
+
 const Time = styled.div`
-    color: silver;
-    text-transform: uppercase;
-    font-size: 12px;
+	color: silver;
+	text-transform: uppercase;
+	font-size: 12px;
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 `;
-const Content = styled.div`
-    font-size: 15px;
-`;
+
 const Post = styled.div`
-    margin-left: 20px;
-    margin-top: 15px;
-    font-size: 20px;
-    /* font-family: popins; */
-
-    span{
-        margin-left: 10px;
-        font-weight: 500;
-    }
+	margin: 0 20px;
+	display: flex;
+	font-size: 15px;
+	span {
+		margin-right: 5px;
+		font-weight: 500;
+		:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
 `;
+
 const LikePost = styled.div`
-    margin-left: 20px;
-    margin-top: 15px;
-    font-size: 20px;
-    /* font-family: popins; */
-
-    span{
-        margin-left: 10px;
-        font-weight: 500;
-    }
+	margin-left: 20px;
+	margin-top: 15px;
+	font-size: 15px;
+	font-family: Poppins;
+	span {
+		font-weight: 700;
+		margin-right: 5px;
+	}
 `;
-const SavedIcon = styled(BsBookmark)`
-    font-size: 30px;
-    color: gray;
-    transition: all 350ms;
-    margin-right: 20px;
 
-    :hover{
-        cursor: pointer;
-        color: silver;
-    }
+const CommentIcon = styled(FaRegComment)`
+	font-size: 25px;
+	transition: all 350ms;
+	color: gray;
+	margin-right: 20px;
+	:hover {
+		cursor: pointer;
+		color: silver;
+	}
 `;
 const SendIcon = styled(FiSend)`
-    font-size: 30px;
-    color: gray;
-    transition: all 350ms;
-    margin-left: 20px;
-
-    :hover{
-        cursor: pointer;
-        color: silver;
-    }
+	font-size: 25px;
+	transition: all 350ms;
+	color: gray;
+	margin-right: 20px;
+	:hover {
+		cursor: pointer;
+		color: silver;
+	}
 `;
-const CommentIcon = styled(FaRegComment)`
-    font-size: 30px;
-    color: gray;
-    transition: all 350ms;
-    margin-left: 20px;
-
-    :hover{
-        cursor: pointer;
-        color: silver;
-    }
+const SavedIcon = styled(BsBookmark)`
+	font-size: 25px;
+	transition: all 350ms;
+	color: gray;
+	:hover {
+		cursor: pointer;
+		color: silver;
+	}
 `;
+
+const LoveIconComment = styled(AiOutlineHeart)`
+	font-size: 25px;
+	transition: all 350ms;
+	color: gray;
+	margin-right: 20px;
+	:hover {
+		cursor: pointer;
+		color: silver;
+	}
+`;
+
 const LoveIcon = styled(AiOutlineHeart)`
-    font-size: 30px;
-    color: gray;
-    transition: all 350ms;
-    margin-left: 20px;
+	font-size: 29px;
+	transition: all 350ms;
+	color: gray;
+	margin-right: 20px;
+	:hover {
+		cursor: pointer;
+		color: silver;
+	}
+`;
 
-    :hover{
-        cursor: pointer;
-        color: silver;
-    }
-`;
 const Icons = styled.div`
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 20px;
+	align-items: center;
+	margin-top: 10px;
 `;
-const DotIcon = styled(BsThreeDots)`
-    color: silver;
-    font-size: 30px;
-`;
+
 const PostImage = styled.img`
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+`;
+
+const DotIcon = styled(BsThreeDots)`
+	font-size: 20px;
+	color: black;
+`;
+const Profile = styled.div`
+	margin-top: 3px;
 `;
 const Hold = styled.div`
-    display: flex;
+	display: flex;
+	font-size: 12px;
 `;
-const Profile = styled.div``;
-const ProfileHolder = styled.div`
 
-`;
 const ProfileName = styled.div`
-    font-weight: 700;
-    font-size: 20px;
+	font-weight: 700;
+	font-size: 12px;
 `;
-const ImageProfile = styled.img`
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    background-color: gray;
-    outline: 4px solid purple;
-    border: 2px solid transparent;
-    background-clip: content-box;
-    border-radius: 50%;
-    margin-right: 15px;
-`;
-const Top = styled.div`
-    display: flex;
-    margin: 20px;
-    padding: 10px 0;
-    justify-content: space-between;
-    align-items: center;
-`;
-const PostBuild = styled.div`
-    margin: 7px;
-    background-color: white;
-    border-radius: 7px;
-`;
-const Name = styled.div``;
-const Holder = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-const Image = styled.img`
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-color: gray;
-    outline: 4px solid purple;
-    border: 2px solid transparent;
-    background-clip: content-box;
-`;
-const TopBuild = styled.div`
-    padding: 20px 0;
-    /* padding-left: 20px; */
-    background-color: white;
-    border-radius: 7px;
 
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
+const ProfileHolder = styled.div`
+	line-height: 1.2;
 `;
+
+const ImageProfile = styled.img`
+	width: 35px;
+	height: 35px;
+	object-fit: cover;
+	border-radius: 50px;
+	outline: 2px solid purple;
+	border: 2px solid transparent;
+	background-clip: content-box;
+	margin-right: 15px;
+`;
+
+const Top = styled.div`
+	display: flex;
+	margin: 0px 20px;
+	padding: 10px 0;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid silver;
+`;
+
+const PostBuild = styled.div`
+	margin: 10px 0;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+		rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	border-radius: 7px;
+`;
+
+const Name = styled.div`
+	margin-top: 5px;
+	font-size: 11px;
+`;
+
+const Image = styled.img`
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	object-fit: cover;
+	outline: 2px solid purple;
+	border: 2px solid transparent;
+	background-clip: content-box;
+`;
+
+const Holder = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const TopBuild = styled.div`
+	padding: 20px 0;
+	padding-left: 20px;
+	background-color: white;
+	border-radius: 7px;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+		rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 40px;
+`;
+
 const Container = styled.div`
-    width: 100%;
+	width: 100%;
 `;
