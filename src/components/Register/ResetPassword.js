@@ -5,49 +5,103 @@ import { AiOutlineMail } from "react-icons/ai";
 import { GiPadlock } from "react-icons/gi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdPassword } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+
+import Swal from "sweetalert2";
 
 const ResetPassword = () => {
-    return (
-        <Container>
-            <Wrapper>
-                <Logo>Social Build</Logo>
+	const { id, token } = useParams();
 
-                <Text>Sign up to see photos and videos from your friends.</Text>
+	const yupSchema = yup.object().shape({
+		email: yup.string().email().required("This field should be filled"),
+	});
 
-                <Button>
-                    <Icon />
-                    <span>Log in with Facebook</span>
-                </Button>
+	const {
+		handleSubmit,
+		reset,
+		register,
+		formState: { errors },
+	} = useForm({ resolver: yupResolver(yupSchema) });
 
-                <LineHolder>
-                    <Line />
-                    <span>or</span>
-                    <Line1 />
-                </LineHolder>
+	const onSubmit = handleSubmit(async (val) => {
+		const { email } = val;
 
-                <InputHolder>
-                    <Icon1 />
-                    <Input placeholder="Email" />
-                </InputHolder>
+		const config = {
+			"content-type": "application/json",
+		};
 
-                <Button1>
-                    <Icon6 />
-                    <span>Request Password Reset</span>
-                </Button1>
-            </Wrapper>
-            <Wrapper>
-                <Linked>
-                    Don't an account? <Span to="/register">Register</Span>
-                </Linked>
-            </Wrapper>
-        </Container>
-    );
+		const localURL = "http://localhost:2222";
+		const mainURL = "https://social-backend22.herokuapp.com";
+
+		const url = `${localURL}/api/user/resetPassword`;
+
+		await axios.post(url, { email }, config).then((res) => {
+			console.log(res.data.data);
+		});
+
+		Swal.fire({
+			icon: "success",
+			title: "Password reset successfully",
+			text: "Now you can sign in...!",
+			footer: '<a href="">This is developed by CodeLab Students: set05</a>',
+		});
+	});
+
+	return (
+		<Container>
+			<Wrapper onSubmit={ onSubmit }>
+				<Logo>Social Build</Logo>
+
+				<Text>Sign up to see photos and videos from your friends.</Text>
+
+				<Button>
+					<Icon />
+					<span>Log in with Facebook</span>
+				</Button>
+
+				<LineHolder>
+					<Line />
+					<span>or</span>
+					<Line1 />
+				</LineHolder>
+
+				<InputHolder>
+					<Icon1 />
+					<Input placeholder="Email" { ...register("email") } />
+				</InputHolder>
+				<Error>{ errors?.email?.message }</Error>
+
+				<Button1 type="submit">
+					<Icon6 />
+					<span>Request Password Reset</span>
+				</Button1>
+			</Wrapper>
+			<Wrapper>
+				<Linked>
+					Don't an account? <Span to="/register">Register</Span>
+				</Linked>
+			</Wrapper>
+		</Container>
+	);
 };
 
 export default ResetPassword;
 
-const Button1 = styled.div`
+const Error = styled.div`
+	font-size: small;
+	color: red;
+`;
+
+const Button1 = styled.button`
+	outline: none;
+	border: 0;
+	font-family: Poppins;
+	font-size: 14px;
 	background-color: rgb(16, 143, 233);
 	/* width: 100%; */
 	color: white;
@@ -200,7 +254,7 @@ const Logo = styled.div`
 	margin-bottom: 10px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
 	width: 350px;
 	height: 100%;
 	min-height: 100px;

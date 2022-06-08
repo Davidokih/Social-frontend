@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import pix from "./babe.jpeg";
 import styled from "styled-components";
 import { FaFacebookSquare, FaRegUserCircle } from "react-icons/fa";
@@ -6,7 +6,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { GiPadlock } from "react-icons/gi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdPassword } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,7 +15,17 @@ import axios from "axios";
 
 import Swal from "sweetalert2";
 
-const SignIn = () => {
+const ConfirmEmailVerification = () => {
+	const { id, token } = useParams();
+
+	const verifyThisUser = async () => {
+		const localURL = "http://localhost:2222";
+		const mainURL = "https://social-backend22.herokuapp.com";
+
+		const url = `${localURL}/api/user/token/${id}/${token}`;
+		await axios.get(url);
+	};
+
 	const yupSchema = yup.object().shape({
 		email: yup.string().email().required("This field should be filled"),
 		password: yup.string().required("This field should be filled"),
@@ -39,7 +49,6 @@ const SignIn = () => {
 		const mainURL = "https://social-backend22.herokuapp.com";
 
 		const url = `${mainURL}/api/user/signin`;
-		// const url = `http://localhost:3322/api/user/signin`;
 
 		await axios.post(url, { email, password }, config).then((res) => {
 			console.log(res.data.data);
@@ -53,12 +62,15 @@ const SignIn = () => {
 		});
 	});
 
+	useEffect(() => {
+		verifyThisUser();
+	}, []);
 	return (
 		<Container>
 			<Wrapper onSubmit={ onSubmit }>
 				<Logo>Social Build</Logo>
 
-				<Text>Sign up to see photos and videos from your friends.</Text>
+				<Text>Congratutation your account is now verified.</Text>
 
 				<Button>
 					<Icon />
@@ -96,13 +108,11 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
-
+export default ConfirmEmailVerification;
 const Error = styled.div`
 	font-size: small;
 	color: red;
 `;
-
 const LinkedNow = styled(Link)`
 	display: flex;
 	font-size: 12px;
@@ -113,9 +123,9 @@ const LinkedNow = styled(Link)`
 const Button1 = styled.button`
 	outline: none;
 	border: 0;
-	font-size: 14px;
 	font-family: Poppins;
 	background-color: rgb(16, 143, 233);
+	/* width: 100%; */
 	color: white;
 	margin: 20px 0px;
 	padding: 7px 50px;
